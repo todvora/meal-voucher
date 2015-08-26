@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Stravenky</string>
+    <string name="action_settings">Nastavení</string>
+    <string name="heading">Stravenková kalkulačka</string>
+    <string name="promptEnterPrice">Zadejte cenu v</string>
+    <string name="piecesShortname">ks</string>
+
+    <string name="optionVoucherValueName">Hodnota stravenky</string>
+    <string name="optionVoucherValueSummary">Hodnota jedné stravenky [%s]</string>
+
+    <string name="optionVoucherCurrencyName">Měna</string>
+    <string name="optionVoucherCurrencySummary">Měna stravenky [%s]</string>
+    <string name="optionLocaleName">Jazyk</string>
+    <string name="optionLocaleSummary">Jazyk aplikace [%s]</string>
+</resources>

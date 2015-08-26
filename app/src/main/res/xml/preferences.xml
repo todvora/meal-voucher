@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <cz.tomasdvorak.mealvoucher.components.FriendlyEditTextPreference android:title="@string/optionVoucherValueName"
+        android:key="voucherValue"
+        android:defaultValue="2.2"
+        android:inputType="numberDecimal"
+        android:summary="@string/optionVoucherValueSummary"></cz.tomasdvorak.mealvoucher.components.FriendlyEditTextPreference>
+    <ListPreference android:title="@string/optionVoucherCurrencyName"
+        android:defaultValue="EUR"
+        android:summary="@string/optionVoucherCurrencySummary"
+        android:key="voucherCurrency"
+        />
+</PreferenceScreen>

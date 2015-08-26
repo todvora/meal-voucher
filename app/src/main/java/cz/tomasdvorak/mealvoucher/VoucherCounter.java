@@ -1,25 +1,35 @@
 package cz.tomasdvorak.mealvoucher;
 
+import java.text.NumberFormat;
+
+import cz.tomasdvorak.mealvoucher.dto.CurrencyEntry;
+
 public class VoucherCounter {
 
-    private static final double VOUCHER_VALUE = 2.2d;
+    private final CurrencyEntry currency;
+    private final double voucherValue;
 
-    public static VoucherCountResult compute(String priceText) {
+    public VoucherCounter(CurrencyEntry currency, double voucherValue) {
+        this.currency = currency;
+        this.voucherValue = voucherValue;
+    }
+
+    public VoucherCountResult compute(String priceText) {
 
         try {
             double price = Double.parseDouble(priceText);
 
-            double divided = price / VOUCHER_VALUE;
+            double divided = price / voucherValue;
 
             int underCount = (int) Math.floor(divided);
             int overCount = (int) Math.ceil(divided);
 
-            double underPrice = price - underCount * VOUCHER_VALUE;
-            double overPrice = price - overCount * VOUCHER_VALUE;
+            double underPrice = price - underCount * voucherValue;
+            double overPrice = price - overCount * voucherValue;
 
-            return new VoucherCountResult(underCount, underPrice, underCount * VOUCHER_VALUE, overCount, overPrice, overCount * VOUCHER_VALUE);
+            return new VoucherCountResult(currency.getFormat(), underCount, underPrice, underCount * voucherValue, overCount, overPrice, overCount * voucherValue);
         } catch (NumberFormatException ignored) {
-            return new VoucherCountResult(0, 0, 0, 0, 0, 0);
+            return new VoucherCountResult(NumberFormat.getNumberInstance(), 0, 0, 0, 0, 0, 0);
         }
     }
 }

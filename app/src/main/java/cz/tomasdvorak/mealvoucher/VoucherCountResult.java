@@ -1,6 +1,9 @@
 package cz.tomasdvorak.mealvoucher;
 
+import java.text.NumberFormat;
+
 public class VoucherCountResult {
+    private NumberFormat numberFormat;
     private int underCount;
     private int overCount;
     private double underVoucherSum;
@@ -8,7 +11,8 @@ public class VoucherCountResult {
     private double overPrice;
     private double overVoucherSum;
 
-    public VoucherCountResult(int underCount, double underPrice, double underVoucherSum, int overCount, double overPrice, double overVoucherSum) {
+    public VoucherCountResult(NumberFormat numberFormat, int underCount, double underPrice, double underVoucherSum, int overCount, double overPrice, double overVoucherSum) {
+        this.numberFormat = numberFormat;
         this.underCount = underCount;
         this.overCount = overCount;
         this.underVoucherSum = underVoucherSum;
@@ -25,19 +29,19 @@ public class VoucherCountResult {
         return overCount;
     }
 
-    public double getUnderPrice() {
-        return underPrice;
+    public String getUnderPrice() {
+        return numberFormat.format(underPrice);
     }
 
-    public double getOverPrice() {
-        return overPrice;
+    public String getOverPrice() {
+        return numberFormat.format(Math.abs(overPrice));
     }
 
-    public double getUnderVoucherSum() {
-        return underVoucherSum;
+    public String getUnderVoucherSum() {
+        return numberFormat.format(underVoucherSum);
     }
 
-    public double getOverVoucherSum() {
-        return overVoucherSum;
+    public String getOverVoucherSum() {
+        return numberFormat.format(overVoucherSum);
     }
 }
