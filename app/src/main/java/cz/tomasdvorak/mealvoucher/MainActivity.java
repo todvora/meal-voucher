@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String VOUCHER_CURRENCY_PREFERENCE = "voucherCurrency";
     public static final String VOUCHER_VALUE_PREFERENCE = "voucherValue";
-    public static final String APPLICATION_LANGUAGE_PREFERENCE = "applicationLanguage";
 
     private SharedPreferences.OnSharedPreferenceChangeListener onSharedPreferenceChangeListener;
     private VoucherCounter voucherCounter;
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setCurrencyCode();
+        setActivityTexts();
         setVoucherCounter();
 
 
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         onSharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                setCurrencyCode();
+                setActivityTexts();
                 setVoucherCounter();
                 recompute(myTextBox.getText());
             }
@@ -75,10 +74,19 @@ public class MainActivity extends AppCompatActivity {
         this.voucherCounter = new VoucherCounter(currency, Double.parseDouble(voucherValue));
     }
 
-    private void setCurrencyCode() {
+    private void setActivityTexts() {
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String currencyCode = prefs.getString(VOUCHER_CURRENCY_PREFERENCE, "EUR");
-        ((TextView) findViewById(R.id.currencyCode)).setText(currencyCode);
+
+        String text = getString(R.string.promptEnterPrice);
+        ((TextView) findViewById(R.id.promptEnterPrice)).setText(String.format(text, currencyCode));
+
+        String voucherValue = prefs.getString(VOUCHER_VALUE_PREFERENCE, "2.2");
+        CurrencyEntry currency = Currencies.INSTANCE.getCurrency(currencyCode);
+        String formattedValue = currency.getFormat().format(Double.valueOf(voucherValue));
+        String labelString = getString(R.string.oneVoucherValueIs);
+        ((TextView) findViewById(R.id.oneVoucherValueLabel)).setText(String.format(labelString, formattedValue));
     }
 
     @Override
